@@ -1,11 +1,14 @@
 package com.participantes.desafio.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,9 +21,13 @@ public class Participante {
 	private String nome;
 	private String email;
 	
-	@ManyToOne
-	@JoinColumn(name = "participante_id")
-	private Atividade participante;
+	@ManyToMany
+    @JoinTable(
+        name = "participante_atividade",
+        joinColumns = @JoinColumn(name = "participante_id"),
+        inverseJoinColumns = @JoinColumn(name = "atividade_id")
+    )
+    private Set<Atividade> atividades;
 	
 	public Participante(Integer id, String nome, String email) {
 		this.id = id;

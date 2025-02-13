@@ -1,13 +1,16 @@
 package com.participantes.desafio.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -23,9 +26,15 @@ public class Atividade {
 	@Column(columnDefinition = "TEXT")
 	private String descricao;
 	
-	@OneToMany(mappedBy = "participante")
-	private List<Participante> participantes = new ArrayList<>();
-	
+	 @ManyToOne
+	    @JoinColumn(name = "categoria_id")
+	    private Categoria categoria;
+
+	    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
+	    private Set<Bloco> blocos;
+
+	    @ManyToMany(mappedBy = "atividades")
+	    private Set<Participante> participantes;
 	
 	private Double preco;
 	
