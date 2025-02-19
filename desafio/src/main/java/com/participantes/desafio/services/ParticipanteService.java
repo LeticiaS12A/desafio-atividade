@@ -7,9 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.participantes.desafio.dto.CategoriaDTO;
 import com.participantes.desafio.dto.ParticipanteDTO;
-import com.participantes.desafio.entities.Categoria;
 import com.participantes.desafio.entities.Participante;
 import com.participantes.desafio.repository.ParticipanteRepository;
 
@@ -29,13 +27,14 @@ public class ParticipanteService {
 		return result.map(x -> new ParticipanteDTO(x));
 	}
 	
-	public ParticipanteDTO adicionarParticipante(ParticipanteDTO participanteDTO) {
-		Participante categoria = new Participante();
+	public ParticipanteDTO adicionarCategoria(ParticipanteDTO participanteDTO) {
+		Participante participante = new Participante();
 		
-		categoria.(categoriaDTO.getDescricao());
+		participante.setNome(participanteDTO.getNome());
+		participante.setEmail(participanteDTO.getEmail());
 		
-		Categoria savedCategoria = repo.save(categoria);
-		return new CategoriaDTO(savedCategoria);
+		Participante savedParticipante = repo.save(participante);
+		return new ParticipanteDTO(savedParticipante);
 	}
 	
 }
